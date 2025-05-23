@@ -3,7 +3,7 @@ package com.lytmoon.springmirai.network;
 import com.lytmoon.springmirai.apiservice.ChatApiService;
 import com.lytmoon.springmirai.apiservice.DeepSeekApiService;
 import com.lytmoon.springmirai.bean.chat.GroupContent;
-import com.lytmoon.springmirai.bean.chat.GroupContext;
+import com.lytmoon.springmirai.bean.chat.ChatContext;
 import com.lytmoon.springmirai.bean.chatgpt.ChatReplyData;
 import com.lytmoon.springmirai.bean.deepseek.DeepSeekRequest;
 import com.lytmoon.springmirai.bean.deepseek.DeepSeekResponse;
@@ -63,7 +63,7 @@ public class NetManager {
         return instance;
     }
 
-    HashMap<String, GroupContext> upDownMap = new HashMap<>();
+    HashMap<String, ChatContext> upDownMap = new HashMap<>();
     DeepSeekApiService dsService = dsretrofit.create(DeepSeekApiService.class);
 
     /**
@@ -73,9 +73,9 @@ public class NetManager {
      */
 
 
-    GroupContext getGroupContext(String groupIDStr) {
+    ChatContext getGroupContext(String groupIDStr) {
         if (!upDownMap.containsKey(groupIDStr)) {
-            upDownMap.put(groupIDStr, new GroupContext(groupIDStr, new ArrayList<>()));
+            upDownMap.put(groupIDStr, new ChatContext(groupIDStr, new ArrayList<>()));
         }
         return upDownMap.get(groupIDStr);
     }
@@ -88,7 +88,7 @@ public class NetManager {
 
         String groupIDStr = Long.toString(groupID);
         //拿到每个群单独的上下文对象
-        GroupContext groupContext = getGroupContext(groupIDStr);
+        ChatContext groupContext = getGroupContext(groupIDStr);
 
         String model = "";
         if (modelCode == 0) model = "deepseek-chat";

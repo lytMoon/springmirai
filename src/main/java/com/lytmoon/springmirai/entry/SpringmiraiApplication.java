@@ -1,5 +1,7 @@
 package com.lytmoon.springmirai.entry;
 
+import com.lytmoon.springmirai.bot.ChatMode;
+import com.lytmoon.springmirai.bot.DSBot;
 import com.lytmoon.springmirai.network.NetManager;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
@@ -34,11 +36,13 @@ public class SpringmiraiApplication {
         if (messageContent.contains("@卷卷") || messageContent.contains("@3341495355")) {
             System.out.println(messageContent);
             if (messageContent.contains("R1") || messageContent.contains("r1")) {
-                NetManager.getInstance().getDeepSeekResponse(messageContent, 1, event);
+//                NetManager.getInstance().getDeepSeekResponse(messageContent, 1, event);
+                DSBot.INSTANCE.sendRequest(messageContent, ChatMode.CHAT_R1, event);
             } else {
-                NetManager.getInstance().getDeepSeekResponse(messageContent, 0, event);
+//                NetManager.getInstance().getDeepSeekResponse(messageContent, 0, event);
+                DSBot.INSTANCE.sendRequest(messageContent, ChatMode.CHAT_V3, event);
             }
-            event.getGroup().sendMessage(NetManager.getInstance().dsresponseList.get(0).getChoices().get(0).getMessage().getContent());
+//            event.getGroup().sendMessage(NetManager.getInstance().dsresponseList.get(0).getChoices().get(0).getMessage().getContent());
         }
     }
 
